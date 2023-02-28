@@ -17,5 +17,5 @@ COPY Project.toml Project.toml
 COPY Manifest.toml Manifest.toml
 
 RUN julia --project=sysimage -e 'import Pkg; Pkg.build(); include(joinpath("sysimage", "build_sysimage.jl")); build()'
-RUN julia -e 'import Pkg; Pkg.add("Revise")'
+RUN julia -J sysimage/sysimage.so -e 'import Pkg; Pkg.add("Revise")'
 RUN julia --project -J sysimage/sysimage.so -e 'using Revise'
